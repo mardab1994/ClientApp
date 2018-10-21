@@ -23,6 +23,7 @@ public class AppController {
 	private Session mySession = new Session();
 	private MainController mainController;
 	private String lines="";
+
 	
     @FXML
     private TextArea chatField;
