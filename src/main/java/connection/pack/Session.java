@@ -11,33 +11,24 @@ import java.util.Scanner;
 import javafx.scene.control.TextField;
 
 public class Session {
-	private Socket s;		// my socket
-	private String nick;	// user nick 
-	private String msg;		// message to send
-	private String line;	// received message
-	
-	private InputStream inStream = null;//(InputStream) s.getInputStream();
-	private OutputStream outStream = null;//s.getOutputStream();
-	private PrintWriter out = null;///new PrintWriter(outStream, true);
-	private Scanner in=null;
+	private Socket s;						// my socket
+	private InputStream inStream = null;	// input stream to read message from server
+	private OutputStream outStream = null;	// output stream to write to server
+	private PrintWriter out = null;			
+	private Scanner in = null;
 	
 	public Session( ) {
 		System.out.println("Session contructor");
 	}
 	
-	public String getMessage() {
-		return line;
-	}
 	public void init() {
 		try {
 			s = new Socket("localhost",8199);
 			inStream = (InputStream) s.getInputStream();
 			outStream = s.getOutputStream();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		 
@@ -45,6 +36,7 @@ public class Session {
 		 in = new Scanner(inStream);
 		 out.println("Hello I am new Client");	//say hello to other clients
 	}
+	
 	public void sendMessage(String message) {
 		out.println(message);
 	}
