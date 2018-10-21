@@ -23,7 +23,9 @@ public class AppController {
 	private Session mySession = new Session();
 	private MainController mainController;
 	private String lines="";
-		
+	private int counter=0;
+	//private boolean work=false;
+	
     @FXML
     private TextArea chatField;
 
