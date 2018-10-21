@@ -22,5 +22,4 @@ public class main extends Application{
 		primaryStage.setTitle("chat client");
 		primaryStage.show();
 	}
-
 }
