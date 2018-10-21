@@ -18,7 +18,6 @@ public class MainController {
 		try {
 			pane = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		MenuScreen menuController = loader.getController();
