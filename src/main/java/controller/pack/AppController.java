@@ -3,6 +3,7 @@ package controller.pack;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import cipher.pack.Cesar;
 import connection.pack.Session;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -64,8 +65,7 @@ public class AppController {
 		this.cipherMode = CipherMode;
 		mySession.init();
 		new Thread(task).start();
+
 	}
-	
-	
 }
 
