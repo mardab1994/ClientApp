@@ -34,7 +34,7 @@ public class Session {
 		 
 		 out = new PrintWriter(outStream, true);
 		 in = new Scanner(inStream);
-		 out.println("Hello I am new Client");	//say hello to other clients
+		// out.println("Hello I am new Client");	//say hello to other clients
 	}
 	
 	public void sendMessage(String message) {
