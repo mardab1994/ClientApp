@@ -50,13 +50,16 @@ public class AppController {
 	    	
 	       while(!isCancelled()) {
 	        	String receivedMsg = mySession.communication();
+	        	String plainMsg;
 	        	if(receivedMsg!="") {
 	        		if(cipherMode == CIPHER_MODE_XOR) {
-	        			receivedMsg = xor.encryptDecrypt(receivedMsg);
+	        			plainMsg = xor.encryptDecrypt(receivedMsg);
 	        		}else if(cipherMode == CIPHER_MODE_CESAR) {
-	        			receivedMsg = cesar.decrypt(receivedMsg);
+	        			plainMsg = cesar.decrypt(receivedMsg);
+	        		}else {
+	        			plainMsg = receivedMsg;
 	        		}
-	        		lines=lines + receivedMsg+"\n";
+	        		lines=lines + plainMsg+"\n";
 	        		chatField.setText(lines);
 	        	}
 	       }
@@ -67,15 +70,15 @@ public class AppController {
 	@FXML	//works fine
     void sendMessage() {
 		String msg=messageBox.getText();
-		String message = this.nick +": "+msg;
+		String cipherMsg = this.nick +": "+msg;
 		
 		if(this.cipherMode == CIPHER_MODE_XOR) {
-			message = xor.encryptDecrypt(message);
+			cipherMsg = xor.encryptDecrypt(cipherMsg);
 		}else if(this.cipherMode == CIPHER_MODE_CESAR) {
-			message = cesar.encrypt(message);
+			cipherMsg = cesar.encrypt(cipherMsg);
 		}
 		
-		mySession.sendMessage(message);
+		mySession.sendMessage(cipherMsg);
 		messageBox.clear();
 		lines = lines +"You: "+msg+"\n";
 		chatField.setText(lines);
