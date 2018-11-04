@@ -15,36 +15,37 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class AppController {
-	Random generator = new Random(); 
+	/**Random generator*/Random generator = new Random(); 
 	
 	private final int CIPHER_MODE_NONE 	= 0;
 	private final int CIPHER_MODE_XOR   = 1;
 	private final int CIPHER_MODE_CESAR = 2;
 
 	
-	private String nick="NoName";
-	private int cipherMode=0;
-	private Session mySession = new Session();
-	private MainController mainController;
+	/**User`s nickname*/private String nick="NoName";
+	/**User`s cipher mode*/private int cipherMode=0;
+	/**Clients session*/private Session mySession = new Session();
+	/**Main controller*/private MainController mainController;
 	private String lines="";
 
-	private Cesar cesar = new Cesar();
-	private XOR xor = new XOR();
+	/**Cesar object for encypt/decypt*/private Cesar cesar = new Cesar();
+	/**XOR object for enrcytp/decypt*/ private XOR xor = new XOR();
 	
 	private int myId;
-	private int myPrivateP;
-	private int myPrivateG;
-	private int mySecret_b;
-	private int B_2send2Server;
+	/**Private P number received from server*/private int myPrivateP;
+	/**Private G number received from server*/private int myPrivateG;
+	/**Secret b number */private int mySecret_b;
+	/**Calculated B number to send to server*/private int B_2send2Server;
 	
-	private int mySessionKey;
+	/**Session key*/private int mySessionKey;
 	
     @FXML
     private TextArea chatField;
 
     @FXML
     private TextField messageBox;
-
+    
+    /**Thread to communicate with server. Received message from sever and decypt and show in window app*/
     Task task = new Task<Void>() {
 	    @Override public Void call() {
 	    	
@@ -66,7 +67,7 @@ public class AppController {
 	        return null;
 	    }
 	};
-	
+	/**Function <code>sendMessage</code> get message from message box and encrypt with users cipher algorithm. After encryption message is send to server.*/
 	@FXML	//works fine
     void sendMessage() {
 		String msg=messageBox.getText();
@@ -87,7 +88,12 @@ public class AppController {
 	public void setMainController(MainController mainController) {
 		this.mainController=mainController;
 	}
-	
+	/**Function <code>setParam</code> initialize parameter for Diffie-hellman (get P, G and A number from server), calculate own B number 
+	 * and send to server, calculate key session, getting key session from server and compare session keys, if they are different the connection 
+	 * is breaking and app is getting close. But if session keys are identical, function start running thread for session and communication with server.  
+	 * @param Nick which is user nickname
+	 * @param CipherMode which is selected cipher mode
+	 * */
 	public void setParam(final String Nick, final int CipherMode) {
 		if(Nick!="") {
 			this.nick = Nick;
